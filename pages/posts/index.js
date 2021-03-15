@@ -1,5 +1,6 @@
-import React from 'react'
-import Link from 'next/link'
+import React from 'react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 // const posts = [
 //     {
@@ -19,22 +20,32 @@ import Link from 'next/link'
 //         title: "Three"
 //     },
 // ];
+const HeaderLoader = dynamic(
+    () => import('../components/header'),{
+    loading: () => <p>Loader</p>,
+    ssr: false }
+)
 
 const Posts = ({posts}) => {
+    
     // console.log(`posts,,,${JSON.stringify(posts)}`)
     return (
-        <ul>
-            {
-                 posts.map((post, key) => {
-                    return( 
-                        <li key={key}>
-                            <Link href={`/posts/[id]`} as={`/posts/${post.id}`}><a>{post.id}</a></Link>
-                            <p>{post.title}</p>
-                        </li>
-                    );
-                })
-            }
-        </ul>
+        <>
+            <HeaderLoader/>
+            <ul>
+                {
+                    posts.map((post, key) => {
+                        return( 
+                            <li key={key}>
+                                <Link href={`/posts/[id]`} as={`/posts/${post.id}`} replace><a>{post.id}</a></Link>
+                                {process.env.NEXT_PUBLIC_BASE_API_URL}
+                                <p>{post.title}</p>
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        </>
     )
 }
 
@@ -49,7 +60,7 @@ const Posts = ({posts}) => {
 //     };
 // }
 export async function getStaticProps(){
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}${process.env.POSTS_URL}`);
     const posts = await res.json();
 
     return {
