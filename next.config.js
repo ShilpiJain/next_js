@@ -1,12 +1,12 @@
-module.exports = {
-    basePath: '/docs',
+// module.exports = {
+//     basePath: '/docs',
     
-    async rewrites() {
-        return [
-          {
-            source: '/about',
-            destination: '/',
-          },
-        ]
-      },
-}
+//     async rewrites() {
+//         return [
+//           {
+//             source: '/about',
+//             destination: '/',
+//           },
+//         ]
+//       },
+// }
