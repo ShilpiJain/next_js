@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 const aboutUs = props => {
     return (
         <>
-        <Head >
+        {/* <Head >
           <title>Shilpi App</title>
-        </Head>
+        </Head> */}
         <div>
             About us page
         </div>
